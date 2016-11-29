@@ -2,20 +2,134 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Learning by lkthinh</title>
+    <title>lkthinh's lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+
+    <style type="text/css">
+      .text-js{
+        opacity: 0;
+      }
+      .cursor{
+        display: block;
+        position: absolute;
+        height: 30%;
+        top: 20px;
+        right: -5px;
+        width: 2px;
+        /* Change colour of Cursor Here */
+        background-color: white;
+        z-index: 1;
+        animation: flash 0.25s none infinite alternate;
+      }
+      @keyframes flash{
+        0%{
+          opacity: 1;
+        }
+        100%{
+          opacity: 0;
+        }
+}   
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script>
+
+// DISCLAIMER: This function does require jQuery. I've used it here because the 
+// project I'm building this for already uses jQuery, so I thought why not. It 
+// can be modified quite simply to be done in raw JavaScript.  
+// Just thought I'd let you know.
+
+function autoType(elementClass, typingSpeed){
+  // Assign the class of target text to "thhis"
+  var thhis = $(elementClass);
+  // Add the CSS of the target text to "position relative & display inline-block" 
+  // This will make sure it stays on the left of the cursor div.
+   thhis.css({
+    "position": "relative",
+    "display": "inline-block"
+  });
+  // Add a <div> for the cursor BEFORE the target text (not the tag, but the 
+  // content only). It has absolute position of being the left-most of the target 
+  // text. Now we're having the following code:
+  // <div class="elementClass">
+  // <div class="cursor" style="right: initial; left:0;"></div>Target text
+  // </div>
+  // I find that the style seems unneccessary so I removed it
+  thhis.prepend('<div class="cursor"></div>');
+  // Find the class "text-js" within the target text...
+  thhis = thhis.find(".text-js");
+
+  // ...then assign to "text" the result of doing the following:
+  // 1. Extract all the text content of the target text to a string
+  // 2. Remove all white spaces at the beginning and the end of the above string
+  // 3. Split the string into an array of characters, because there's no space 
+  // in the parameter of split method, i.e. [t,a,r,g,e,t, ,t,e,x,t] If there's a
+  // white space split(' '), the array will be [target, ,text]
+  // This is used to store the text content before turning it into "|" below
+  var text = thhis.text().trim().split('');
+  // Assign the length of the array to "amtOfChars", i.e.11
+  var amntOfChars = text.length;
+  // Assign a placehoder (empty string) to "newString"
+  var newString = "";
+
+  // Replace whole content incl. child tags of target text as "|". If we don't
+  // do this, the cursor begins at the right side, the target text flashes 
+  // briefly before the cursor move to the middle to begin the effect (why?)
+  thhis.text("|");
+
+  // setTimeout method will prevent function from starting until after 1 sec
+  setTimeout(function(){
+    // Make opacity of target text to 1 (fully visible)
+    thhis.css("opacity",1);
+    // Target previous sibling element - the div cursor - and remove its style (why?)
+    // thhis.prev().removeAttr("style");
+    // Remove all text content of target text (why?) - looks like this line can 
+    // be omitted, making the effect look nicer
+    // thhis.text("");
+
+    // Do a loop until i is equal the number of chars of target text
+    for(var i = 0; i < amntOfChars; i++){
+      // Code block to loop with 2 parameters: i and char
+      (function(i,char){
+        // Create a short pause after typing each char
+        setTimeout(function() {
+          // Add each new char to newString, which is still empty by now
+          newString += char;
+          // Now replace target text with the content of newString
+          thhis.text(newString);
+        },i*typingSpeed);
+        // Display each item of the array text[t,a,r,g,e,t, , t,e,x,t] after each 
+        // other. If [1] then the result is "ssssssss...". But why i+1 but not i? 
+        // I removed the "+1" part and it seems to function ok because after each
+        // loop, i will increase by 1 as in the loop parameter
+      }) (i,text[i]);
+    }
+  },1000);
+}
+  // Only launch autoType function after all DOM is loaded (good practice)
+$(document).ready(function(){
+  // Now to start autoTyping just call the autoType function with the class of 
+  // outer div. The second paramter is the speed between each letter is typed.
+  autoType(".type-js",100);
+
+});
+</script>
+
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Learning</h1>
-      <h2 class="project-tagline">Used for fiddling, running, testing what I learned</h2>
+      <h1 class="project-name">lkthinh's lab</h1>
+      <div class="type-js headline">
+      <h2 class="project-tagline text-js">Used for fiddling, running, testing what I learned</h2></div>
+      <div>
       <a href="https://github.com/lkthinh/learning" class="btn">View on GitHub</a>
       <a href="https://github.com/lkthinh/learning/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/lkthinh/learning/tarball/master" class="btn">Download .tar.gz</a>
+      <a href="https://github.com/lkthinh/learning/tarball/master" class="btn">Download .tar.gz</a></div>
     </section>
 
     <section class="main-content">
@@ -52,6 +166,9 @@
 
     </section>
 
-  
+      
+
+    
+
   </body>
 </html>

@@ -1,32 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-<title>Phrase-o-matic</title>
-<meta charset="utf-8">
-<style>
-body {
-font-family: verdana, Helvetica, sans-serif;
-}
-</style>
+  <meta charset="utf-8">
+  <title>JS playground</title>
+  <style type="text/css">
+      #typingtext{
+        opacity: 0;
+      }
+  </style>
+  
 
-<script>
-function makePhrases() {
-  var words1 = ["24/7", "multi-Tier", "30,000 foot", "B-to-B", "win-win"];
-  var words2 = ["empowered", "value-added", "oriented", "focused", "aligned"];
-  var words3 = ["process", "solution", "tipping-point", "strategy", "vision"];
-
-  var rand1 = Math.floor(Math.random() * words1.length);
-  var rand2 = Math.floor(Math.random() * words2.length);
-  var rand3 = Math.floor(Math.random() * words3.length);
-  var phrase = words1[rand1] + " " + words2[rand2] + " " + words3[rand3];
-  var phraseElement = document.getElementById("phrase");
-  phraseElement.innerHTML = phrase;
-}
-window.onload = makePhrases;
-</script>
 </head>
 <body>
-<h1>Phrase-o-Matic says:</h1>
-<p id="phrase"></p>
+ <div id="typingtext">
+This is what I'd say, this was what I said
+ </div>
+ <div id="board">
+This is wsaid
+ </div>
+
+
+  <script type="text/javascript">
+  	// Let's create the typing function
+  	var content = document.getElementById("typingtext").innerText.trim().split("");
+  	setTimeOut(function(){
+  		for (var i=0; i<content.length; i++){
+  		document.getElementById("board").innerHTML += content[i];
+  		};
+  	},500)
+  	
+  </script>
+
+
 </body>
 </html>
