@@ -1,39 +1,59 @@
 // Object creation
-var company = new Object();
-company.name = "Facebook";
-company.ceo = new Object();
-company.ceo.firstName = "Mark";
-company.ceo.favColor = "blue";
 
-console.log(company);
-console.log("Company CEO name is: " 
-  + company.ceo.firstName);
+// var facebook = {
+//   name: "Facebook",
+//   ceo: {
+//     firstName: "Mark",
+//     favColor: "blue"
+//   },
+//   "stock of company": 110
+// };
 
-console.log(company["name"]);
-var stockPropName = "stock of company";
-company[stockPropName] = 110;
+// var google ={
+// 	name: "Google Inc.",
+// 	investor: "Alphabet LLC.",
+// 	founder: {
+// 		firstFounder: "Larry",
+// 		secondFounder: "Sergei"
+// 	},
+// 	motto: "Don't be evil"
+// };
 
-console.log("Stock price is: " + 
-  company[stockPropName]);
+// var favRecipe = {
+// 	title: "Pho",
+// 	servings: 4,
+// 	ingredients: ['noodle', 'salt', 'star anise', 'beef']
+// };
 
-// Better way: object literal
-var facebook = {
-  name: "Facebook",
-  ceo: {
-    firstName: "Mark",
-    favColor: "blue"
-  },
-  "stock of company": 110
+// document.getElementById('screen').innerHTML = favRecipe.ingredients[1];
+
+// document.write("<ul>")
+// for (var i=0; i<favRecipe.ingredients.length; i++) {
+// 	document.write("<li>" + favRecipe.ingredients[i] + "</li>");
+// };
+// document.write("</ul>")
+
+var bookList = [
+	{	title: "Lord of the Rings",
+		author: "J.R.R Tolkien",
+		read: true	},
+	{	title: "Tis the season",
+		author: "Unknown",
+		read: false	},
+];
+
+
+function readYet() {
+	if (bookList[i].read) {
+		document.getElementById('screen1').innerHTML = "You have already read " + bookList[i].title;
+	}
+	else {
+		document.getElementById('screen2').innerHTML = "You still need to read " + bookList[i].title;
+	}
 };
 
-console.log(facebook.ceo.firstName);
-
-
-
-
-
-
-
-
+for (var i=0; i < bookList.length; i++) {
+	readYet();
+};
 
 
